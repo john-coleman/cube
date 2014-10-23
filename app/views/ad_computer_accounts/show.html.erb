@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Domain:</strong>
+  <%= @ad_computer_account.domain %>
+</p>
+
+<p>
+  <strong>Machine account:</strong>
+  <%= @ad_computer_account.machine_account %>
+</p>
+
+<p>
+  <strong>Organizational unit:</strong>
+  <%= @ad_computer_account.ou %>
+</p>
+
+<%= link_to 'Edit', edit_ad_computer_account_path(@ad_computer_account) %> |
+<%= link_to 'Back', ad_computer_accounts_path %>

@@ -1,0 +1,6 @@
+---
+:output_files:
+- brakeman-output.tabs
+- brakeman-output.html
+:report_progress: false
+:collapse_mass_assignment: false

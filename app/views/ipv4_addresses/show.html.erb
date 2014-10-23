@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>IPv4 address:</strong>
+  <%= @ipv4_address.ipv4_address %>
+</p>
+
+<p>
+  <strong>Mac address:</strong>
+  <%= @ipv4_address.mac_address %>
+</p>
+
+<p>
+  <strong>Ptr record:</strong>
+  <%= @ipv4_address.ptr_record %>
+</p>
+
+<%= link_to 'Edit', edit_ipv4_address_path(@ipv4_address) %> |
+<%= link_to 'Back', ipv4_addresses_path %>

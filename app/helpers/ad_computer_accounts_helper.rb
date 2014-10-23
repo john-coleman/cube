@@ -1,0 +1,2 @@
+module ADComputerAccountsHelper
+end
