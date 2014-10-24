@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141023165423) do
+ActiveRecord::Schema.define(version: 20141024170041) do
 
   create_table "ad_computer_accounts", force: true do |t|
     t.string   "domain"
@@ -21,18 +21,14 @@ ActiveRecord::Schema.define(version: 20141023165423) do
     t.datetime "updated_at"
   end
 
-  create_table "computers", force: true do |t|
-    t.string   "hostname"
-    t.string   "domain"
-    t.string   "os"
+  create_table "device_ipv4_addresses", force: true do |t|
+    t.integer  "device_id"
+    t.integer  "ipv4_address_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "device_ipv4_addresses", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+  add_index "device_ipv4_addresses", ["device_id", "ipv4_address_id"], name: "index_device_ipv4_addresses_on_device_id_and_ipv4_address_id", unique: true, using: :btree
 
   create_table "devices", force: true do |t|
     t.string   "hostname"
@@ -40,12 +36,32 @@ ActiveRecord::Schema.define(version: 20141023165423) do
     t.string   "os"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "creator"
+    t.string   "owner"
+    t.string   "pci_scope"
   end
+
+  create_table "devices_ipv4_addresses", force: true do |t|
+    t.string   "devices"
+    t.string   "ipv4_addresses"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "devices_ipv4_addresses", ["ipv4_addresses"], name: "index_devices_ipv4_addresses_on_ipv4_addresses", using: :btree
 
   create_table "ipv4_addresses", force: true do |t|
     t.string   "ipv4_address"
     t.string   "mac_address"
     t.string   "ptr_record"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "users", force: true do |t|
+    t.string   "username"
+    t.string   "display_name"
+    t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

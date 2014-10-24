@@ -67,6 +67,7 @@ group :test, :development do
   gem 'awesome_print'
   # gem 'debugger'
   gem 'factory_girl_rails'
+  gem 'faker'
   gem 'pry-rails'
   gem 'rspec-rails', '~> 3.0.0'
   gem 'rubocop'

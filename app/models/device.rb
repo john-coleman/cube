@@ -1,14 +1,15 @@
 class Device < ActiveRecord::Base
-  has_one :ad_computer_account
+  #has_one :ad_computer_account
 
-  has_many :device_ipv4_address
-  has_many :ip_address, through: :device_ipv4_address
+  #has_many :device_ipv4_addresses
+  #has_many :ipv4_addresses, through: :device_ipv4_addresses
 
-  validates :domain, through: :ad_computer_account
   validates :hostname, presence: true,
-                       length: { maximum: 63, message: 'Hostname must be less than 63 characters' },
+                       length: { in: 1..63, message: 'Hostname must be less than 63 characters' },
                        format: { with: /\A[a-zA-Z0-9-]+\z/, message: 'Hostname must match /[a-zA-Z0-9]/' }
-  validates :platform, inclusion: { in: [ 'Windows', 'Ubuntu', 'Cisco', 'F5' ] }
+  validates :os, allow_nil: true, allow_blank: true, inclusion: { in: [ 'Centos', 'Cisco', 'F5', 'Ubuntu', 'Windows' ] }
+  validates :pci_scope, inclusion: { in: [true,false], message: 'PCI Scope must be true or false' }
 
-  validates_associated :ip_address
+  #validates_associated :domain
+  #validates_associated :ipv4_address
 end

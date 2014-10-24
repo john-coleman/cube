@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :users
+
   resources :ad_computer_accounts
 
   resources :ipv4_addresses
