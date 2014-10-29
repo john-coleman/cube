@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Domain:
+  = @ad_computer_account.domain
+%p
+  %b Machine Account:
+  = @ad_computer_account.machine_account
+%p
+  %b OU:
+  = @ad_computer_account.ou
+
+= link_to 'Edit', edit_ad_computer_account_path(@ad_computer_account)
+\|
+= link_to 'Back', ad_computer_accounts_path

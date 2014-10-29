@@ -1,15 +1,32 @@
 class Device < ActiveRecord::Base
-  #has_one :ad_computer_account
+  OS_TYPES = %w(centos cisco f5 linux ubuntu windows)
 
-  #has_many :device_ipv4_addresses
-  #has_many :ipv4_addresses, through: :device_ipv4_addresses
+  belongs_to :owner, class_name: 'User'
+  belongs_to :creator, class_name: 'User'
 
+  has_one :ad_computer_account
+
+  has_many :device_ipv4_addresses
+  has_many :ipv4_addresses, through: :device_ipv4_addresses
+
+  validates :domain, allow_nil: true, allow_blank: true,
+                     length: { in: 1..252, message: 'must be between 1-252 characters' },
+                     format: { with: /\A([[:alnum:]-]+\.)*([[:alnum:]-]+)\z/,
+                               message: 'must be valid domain eg. foo-bar.baz-9-domain.tld' }
   validates :hostname, presence: true,
-                       length: { in: 1..63, message: 'Hostname must be less than 63 characters' },
-                       format: { with: /\A[a-zA-Z0-9-]+\z/, message: 'Hostname must match /[a-zA-Z0-9]/' }
-  validates :os, allow_nil: true, allow_blank: true, inclusion: { in: [ 'Centos', 'Cisco', 'F5', 'Ubuntu', 'Windows' ] }
-  validates :pci_scope, inclusion: { in: [true,false], message: 'PCI Scope must be true or false' }
+                       length: { in: 1..63, message: 'must be less than 63 characters' },
+                       format: { with: /\A[a-zA-Z0-9-]+\z/, message: 'must match /[a-zA-Z0-9-]+/' }
+  validates :os, allow_nil: true, allow_blank: true,
+                 inclusion: { in: OS_TYPES, message: "must be one of #{OS_TYPES.join(', ')}" }
+  validates :pci_scope, allow_nil: true, allow_blank: true,
+                        inclusion: { in: ['true', 'false', true, false], message: "must be 'true' or 'false' at present" }
 
-  #validates_associated :domain
-  #validates_associated :ipv4_address
+  # validates_associated :domain
+  # validates_associated :ipv4_address
+
+  before_validation :downcase_os
+
+  def downcase_os
+    os.downcase!
+  end
 end

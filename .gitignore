@@ -20,11 +20,22 @@
 /config/newrelic.yml
 /config/srs.yml
 
-# Ignore Aptana project config
-/.project
+# Ignore documentation
+/doc
+
+# Ignore ERD diagrams
+/*erd.pdf
+/*erd.png
 
 # Ignore code coverage and security reports
 /brakeman-output.*
 /coverage
 /reports
 /stepdown
+
+# Ignore Aptana project config
+/.project
+
+# Ignore OSX
+/.DS_Store
+/.Trash

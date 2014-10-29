@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b IPv4 Address:
+  = @ipv4_address.ipv4_address
+%p
+  %b MAC Address:
+  = @ipv4_address.mac_address
+%p
+  %b PTR Record:
+  = @ipv4_address.ptr_record
+
+= link_to 'Edit', edit_ipv4_address_path(@ipv4_address)
+\|
+= link_to 'Back', ipv4_addresses_path

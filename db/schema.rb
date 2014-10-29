@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141024170041) do
+ActiveRecord::Schema.define(version: 20141029160840) do
 
   create_table "ad_computer_accounts", force: true do |t|
     t.string   "domain"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20141024170041) do
     t.string   "ou"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "device_id"
   end
 
   create_table "device_ipv4_addresses", force: true do |t|
@@ -36,19 +37,10 @@ ActiveRecord::Schema.define(version: 20141024170041) do
     t.string   "os"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "creator"
-    t.string   "owner"
+    t.integer  "creator_id"
+    t.integer  "owner_id"
     t.string   "pci_scope"
   end
-
-  create_table "devices_ipv4_addresses", force: true do |t|
-    t.string   "devices"
-    t.string   "ipv4_addresses"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "devices_ipv4_addresses", ["ipv4_addresses"], name: "index_devices_ipv4_addresses_on_ipv4_addresses", using: :btree
 
   create_table "ipv4_addresses", force: true do |t|
     t.string   "ipv4_address"
@@ -60,7 +52,7 @@ ActiveRecord::Schema.define(version: 20141024170041) do
 
   create_table "users", force: true do |t|
     t.string   "username"
-    t.string   "display_name"
+    t.string   "name"
     t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"

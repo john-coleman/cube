@@ -1,22 +1,22 @@
 require 'rails_helper'
 
-RSpec.describe IPv4Address, :type => :model do
+RSpec.describe IPv4Address, type: :model do
   subject { FactoryGirl.build :ipv4_address }
 
   context 'with valid input' do
     subject { FactoryGirl.build :ipv4_address, params }
 
-    let(:params) {
+    let(:params) do
       {
         ipv4_address: '10.20.30.40',
         mac_address: '01:45:89:AB:CD:EF',
         ptr_record: 'a-machine-acc01.a.domain.com.'
       }
-    }
+    end
 
     it { is_expected.to be_valid }
 
-    it 'validates mixed-case MAC address' do
+    it 'validates mixed-case MAC Address' do
       subject.mac_address = '01:ab:23:CD:45:eF'
       is_expected.to be_valid
     end

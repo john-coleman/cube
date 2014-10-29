@@ -28,7 +28,7 @@ class ADComputerAccountsController < ApplicationController
 
     respond_to do |format|
       if @ad_computer_account.save
-        format.html { redirect_to @ad_computer_account, notice: 'AD computer account was successfully created.' }
+        format.html { redirect_to @ad_computer_account, notice: 'AD Computer Account was successfully created.' }
         format.json { render :show, status: :created, location: @ad_computer_account }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class ADComputerAccountsController < ApplicationController
   def update
     respond_to do |format|
       if @ad_computer_account.update(ad_computer_account_params)
-        format.html { redirect_to @ad_computer_account, notice: 'AD computer account was successfully updated.' }
+        format.html { redirect_to @ad_computer_account, notice: 'AD Computer Account was successfully updated.' }
         format.json { render :show, status: :ok, location: @ad_computer_account }
       else
         format.html { render :edit }
@@ -56,19 +56,20 @@ class ADComputerAccountsController < ApplicationController
   def destroy
     @ad_computer_account.destroy
     respond_to do |format|
-      format.html { redirect_to ad_computer_accounts_url, notice: 'AD computer account was successfully destroyed.' }
+      format.html { redirect_to ad_computer_accounts_url, notice: 'AD Computer Account was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_ad_computer_account
-      @ad_computer_account = ADComputerAccount.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def ad_computer_account_params
-      params.require(:ad_computer_account).permit(:domain, :machine_account, :ou)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_ad_computer_account
+    @ad_computer_account = ADComputerAccount.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def ad_computer_account_params
+    params.require(:ad_computer_account).permit(:domain, :machine_account, :ou)
+  end
 end

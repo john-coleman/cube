@@ -28,7 +28,7 @@ class IPv4AddressesController < ApplicationController
 
     respond_to do |format|
       if @ipv4_address.save
-        format.html { redirect_to @ipv4_address, notice: 'IPv4 address was successfully created.' }
+        format.html { redirect_to @ipv4_address, notice: 'IPv4 Address was successfully created.' }
         format.json { render :show, status: :created, location: @ipv4_address }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class IPv4AddressesController < ApplicationController
   def update
     respond_to do |format|
       if @ipv4_address.update(ipv4_address_params)
-        format.html { redirect_to @ipv4_address, notice: 'IPv4 address was successfully updated.' }
+        format.html { redirect_to @ipv4_address, notice: 'IPv4 Address was successfully updated.' }
         format.json { render :show, status: :ok, location: @ipv4_address }
       else
         format.html { render :edit }
@@ -56,19 +56,20 @@ class IPv4AddressesController < ApplicationController
   def destroy
     @ipv4_address.destroy
     respond_to do |format|
-      format.html { redirect_to ipv4_addresses_url, notice: 'IPv4 address was successfully destroyed.' }
+      format.html { redirect_to ipv4_addresses_url, notice: 'IPv4 Address was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_ipv4_address
-      @ipv4_address = IPv4Address.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def ipv4_address_params
-      params.require(:ipv4_address).permit(:ipv4_address, :mac_address, :ptr_record)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_ipv4_address
+    @ipv4_address = IPv4Address.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def ipv4_address_params
+    params.require(:ipv4_address).permit(:ipv4_address, :mac_address, :ptr_record)
+  end
 end

@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Hostname:
+  = @device.hostname
+%p
+  %b Domain:
+  = @device.domain
+%p
+  %b OS:
+  = @device.os
+
+= link_to 'Edit', edit_device_path(@device)
+\|
+= link_to 'Back', devices_path

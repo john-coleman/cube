@@ -1,7 +1,10 @@
 #!/usr/bin/env ruby
 begin
-  load File.expand_path("../spring", __FILE__)
+  load File.expand_path('../spring', __FILE__)
 rescue LoadError
+  # rubocop:disable Rails/Output
+  puts 'Spring not found. Run `bundle install`'
+  # rubocop:enable Rails/Output
 end
 APP_PATH = File.expand_path('../../config/application',  __FILE__)
 require_relative '../config/boot'

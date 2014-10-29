@@ -18,140 +18,140 @@ require 'rails_helper'
 # Message expectations are only used when there is no simpler way to specify
 # that an instance is receiving a specific message.
 
-RSpec.describe IPv4AddressesController, :type => :controller do
+RSpec.describe IPv4AddressesController, type: :controller do
 
   # This should return the minimal set of attributes required to create a valid
   # IPv4Address. As you add validations to IPv4Address, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
+  let(:valid_attributes) do
+    skip('Add a hash of attributes valid for your model')
+  end
 
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
+  let(:invalid_attributes) do
+    skip('Add a hash of attributes invalid for your model')
+  end
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # IPv4AddressesController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
-  describe "GET index" do
-    it "assigns all ipv4_addresses as @ipv4_addresses" do
+  describe 'GET index' do
+    it 'assigns all ipv4_addresses as @ipv4_addresses' do
       ipv4_address = IPv4Address.create! valid_attributes
       get :index, {}, valid_session
       expect(assigns(:ipv4_addresses)).to eq([ipv4_address])
     end
   end
 
-  describe "GET show" do
-    it "assigns the requested ipv4_address as @ipv4_address" do
+  describe 'GET show' do
+    it 'assigns the requested ipv4_address as @ipv4_address' do
       ipv4_address = IPv4Address.create! valid_attributes
-      get :show, {:id => ipv4_address.to_param}, valid_session
+      get :show, { id: ipv4_address.to_param }, valid_session
       expect(assigns(:ipv4_address)).to eq(ipv4_address)
     end
   end
 
-  describe "GET new" do
-    it "assigns a new ipv4_address as @ipv4_address" do
+  describe 'GET new' do
+    it 'assigns a new ipv4_address as @ipv4_address' do
       get :new, {}, valid_session
       expect(assigns(:ipv4_address)).to be_a_new(IPv4Address)
     end
   end
 
-  describe "GET edit" do
-    it "assigns the requested ipv4_address as @ipv4_address" do
+  describe 'GET edit' do
+    it 'assigns the requested ipv4_address as @ipv4_address' do
       ipv4_address = IPv4Address.create! valid_attributes
-      get :edit, {:id => ipv4_address.to_param}, valid_session
+      get :edit, { id: ipv4_address.to_param }, valid_session
       expect(assigns(:ipv4_address)).to eq(ipv4_address)
     end
   end
 
-  describe "POST create" do
-    describe "with valid params" do
-      it "creates a new IPv4Address" do
-        expect {
-          post :create, {:ipv4_address => valid_attributes}, valid_session
-        }.to change(IPv4Address, :count).by(1)
+  describe 'POST create' do
+    describe 'with valid params' do
+      it 'creates a new IPv4Address' do
+        expect do
+          post :create, { ipv4_address: valid_attributes }, valid_session
+        end.to change(IPv4Address, :count).by(1)
       end
 
-      it "assigns a newly created ipv4_address as @ipv4_address" do
-        post :create, {:ipv4_address => valid_attributes}, valid_session
+      it 'assigns a newly created ipv4_address as @ipv4_address' do
+        post :create, { ipv4_address: valid_attributes }, valid_session
         expect(assigns(:ipv4_address)).to be_a(IPv4Address)
         expect(assigns(:ipv4_address)).to be_persisted
       end
 
-      it "redirects to the created ipv4_address" do
-        post :create, {:ipv4_address => valid_attributes}, valid_session
+      it 'redirects to the created ipv4_address' do
+        post :create, { ipv4_address: valid_attributes }, valid_session
         expect(response).to redirect_to(IPv4Address.last)
       end
     end
 
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved ipv4_address as @ipv4_address" do
-        post :create, {:ipv4_address => invalid_attributes}, valid_session
+    describe 'with invalid params' do
+      it 'assigns a newly created but unsaved ipv4_address as @ipv4_address' do
+        post :create, { ipv4_address: invalid_attributes }, valid_session
         expect(assigns(:ipv4_address)).to be_a_new(IPv4Address)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {:ipv4_address => invalid_attributes}, valid_session
-        expect(response).to render_template("new")
+        post :create, { ipv4_address: invalid_attributes }, valid_session
+        expect(response).to render_template('new')
       end
     end
   end
 
-  describe "PUT update" do
-    describe "with valid params" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
-
-      it "updates the requested ipv4_address" do
-        ipv4_address = IPv4Address.create! valid_attributes
-        put :update, {:id => ipv4_address.to_param, :ipv4_address => new_attributes}, valid_session
-        ipv4_address.reload
-        skip("Add assertions for updated state")
+  describe 'PUT update' do
+    describe 'with valid params' do
+      let(:new_attributes) do
+        skip('Add a hash of attributes valid for your model')
       end
 
-      it "assigns the requested ipv4_address as @ipv4_address" do
+      it 'updates the requested ipv4_address' do
         ipv4_address = IPv4Address.create! valid_attributes
-        put :update, {:id => ipv4_address.to_param, :ipv4_address => valid_attributes}, valid_session
+        put :update, { id: ipv4_address.to_param, ipv4_address: new_attributes }, valid_session
+        ipv4_address.reload
+        skip('Add assertions for updated state')
+      end
+
+      it 'assigns the requested ipv4_address as @ipv4_address' do
+        ipv4_address = IPv4Address.create! valid_attributes
+        put :update, { id: ipv4_address.to_param, ipv4_address: valid_attributes }, valid_session
         expect(assigns(:ipv4_address)).to eq(ipv4_address)
       end
 
-      it "redirects to the ipv4_address" do
+      it 'redirects to the ipv4_address' do
         ipv4_address = IPv4Address.create! valid_attributes
-        put :update, {:id => ipv4_address.to_param, :ipv4_address => valid_attributes}, valid_session
+        put :update, { id: ipv4_address.to_param, ipv4_address: valid_attributes }, valid_session
         expect(response).to redirect_to(ipv4_address)
       end
     end
 
-    describe "with invalid params" do
-      it "assigns the ipv4_address as @ipv4_address" do
+    describe 'with invalid params' do
+      it 'assigns the ipv4_address as @ipv4_address' do
         ipv4_address = IPv4Address.create! valid_attributes
-        put :update, {:id => ipv4_address.to_param, :ipv4_address => invalid_attributes}, valid_session
+        put :update, { id: ipv4_address.to_param, ipv4_address: invalid_attributes }, valid_session
         expect(assigns(:ipv4_address)).to eq(ipv4_address)
       end
 
       it "re-renders the 'edit' template" do
         ipv4_address = IPv4Address.create! valid_attributes
-        put :update, {:id => ipv4_address.to_param, :ipv4_address => invalid_attributes}, valid_session
-        expect(response).to render_template("edit")
+        put :update, { id: ipv4_address.to_param, ipv4_address: invalid_attributes }, valid_session
+        expect(response).to render_template('edit')
       end
     end
   end
 
-  describe "DELETE destroy" do
-    it "destroys the requested ipv4_address" do
+  describe 'DELETE destroy' do
+    it 'destroys the requested ipv4_address' do
       ipv4_address = IPv4Address.create! valid_attributes
-      expect {
-        delete :destroy, {:id => ipv4_address.to_param}, valid_session
-      }.to change(IPv4Address, :count).by(-1)
+      expect do
+        delete :destroy, { id: ipv4_address.to_param }, valid_session
+      end.to change(IPv4Address, :count).by(-1)
     end
 
-    it "redirects to the ipv4_addresses list" do
+    it 'redirects to the ipv4_addresses list' do
       ipv4_address = IPv4Address.create! valid_attributes
-      delete :destroy, {:id => ipv4_address.to_param}, valid_session
+      delete :destroy, { id: ipv4_address.to_param }, valid_session
       expect(response).to redirect_to(ipv4_addresses_url)
     end
   end

@@ -1,0 +1,23 @@
+%h1 Listing ipv4_addresses
+
+%table
+  %tr
+    %th IPv4 Address
+    %th MAC Address
+    %th PTR Record
+    %th
+    %th
+    %th
+
+  - @ipv4_addresses.each do |ipv4_address|
+    %tr
+      %td= ipv4_address.ipv4_address
+      %td= ipv4_address.mac_address
+      %td= ipv4_address.ptr_record
+      %td= link_to 'Show', ipv4_address
+      %td= link_to 'Edit', edit_ipv4_address_path(ipv4_address)
+      %td= link_to 'Destroy', ipv4_address, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New IPv4 Address', new_ipv4_address_path

@@ -1,22 +1,25 @@
 FactoryGirl.define do
   factory :device do
+
+    sequence(:hostname) { |n| "host#{n}" }
+    creator
+    owner
+    # ad_computer_account
+    # ipv4_address
+    os 'cisco'
+    pci_scope false
+
     trait :centos do
-      os 'Centos'
+      os 'centos'
     end
 
     trait :ubuntu do
-      os 'Ubuntu'
+      os 'ubuntu'
     end
 
     trait :windows do
-      os 'Windows'
+      os 'windows'
     end
-
-    sequence(:hostname) { |n| "host#{n}" }
-    #ad_computer_account { FactoryGirl.build :ad_computer_account}
-    #ipv4_address { FactoryGirl.build :ipv4_address }
-    os 'Cisco'
-    pci_scope false
   end
 
 end

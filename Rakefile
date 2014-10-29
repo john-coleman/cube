@@ -16,3 +16,19 @@ if Rails.env.test? || Rails.env.development?
 end
 
 Rails.application.load_tasks
+
+desc 'Run Cube Tests'
+task :cube_test do
+  Rake::Task['spec'].invoke
+  Rake::Task['cucumber'].invoke
+  Rake::Task['brakeman:run'].invoke('brakeman-output.tabs brakeman-output.html')
+  Rake::Task['rubocop'].invoke
+  Rake::Task['stats'].invoke
+end
+
+desc 'Run Cube Documentation Generation'
+task :cube_doc do
+  Rake::Task['doc:app'].invoke
+  # Rake::Task['erd'].invoke(filetype: 'png')
+  # Rake::Task['rails_erd'].invoke(filetype: %w(pdf png))
+end

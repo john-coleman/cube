@@ -1,8 +1,7 @@
 AllCops:
+  RunRailsCops: true
   Exclude:
-    - '**/metadata.rb'
-    - '**/*.gemspec'
-    - '**/version.rb'
+    - 'db/schema.rb'
 
 ClassAndModuleChildren:
   Enabled: false
