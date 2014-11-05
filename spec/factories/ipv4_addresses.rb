@@ -5,5 +5,4 @@ FactoryGirl.define do
     mac_address { Faker::Internet.mac_address }
     ptr_record 'a.ptr.record.'
   end
-
 end

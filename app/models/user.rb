@@ -1,8 +1,8 @@
 class User < ActiveRecord::Base
   ROLES = %w(admin user)
 
-  has_many :created_devices, class_name: 'User', foreign_key: 'creator_id'
-  has_many :owned_devices, class_name: 'User', foreign_key: 'owner_id'
+  has_many :created_devices, class_name: 'Device', foreign_key: 'creator_id'
+  has_many :owned_devices, class_name: 'Device', foreign_key: 'owner_id'
 
   # validates :role, presence: true, inclusion: ROLES
   validates :username, uniqueness: true, presence: true

@@ -22,7 +22,7 @@ class IPv4Address < ActiveRecord::Base
   before_validation :upcase_mac_address
 
   def upcase_mac_address
-    mac_address.upcase!
+    mac_address.upcase! if mac_address
   end
 
   def valid_ipv4_address

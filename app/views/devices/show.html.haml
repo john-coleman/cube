@@ -9,6 +9,18 @@
 %p
   %b OS:
   = @device.os
+%p
+  %b IPv4 Address:
+  = @device.ipv4_address
+%p
+  %b Creator:
+  = @device.creator.name
+%p
+  %b Owner:
+  = @device.owner.name
+%p
+  %b Updated:
+  = @device.updated_at
 
 = link_to 'Edit', edit_device_path(@device)
 \|

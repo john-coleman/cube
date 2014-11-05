@@ -7,13 +7,13 @@
           %li= msg
 
   .field
-    = f.label :ipv4_address
+    = f.label :ipv4_address, 'IPv4 Address'
     = f.text_field :ipv4_address
   .field
-    = f.label :mac_address
+    = f.label :mac_address, 'MAC Address'
     = f.text_field :mac_address
   .field
-    = f.label :ptr_record
+    = f.label :ptr_record, 'PTR Record'
     = f.text_field :ptr_record
   .actions
     = f.submit 'Save'

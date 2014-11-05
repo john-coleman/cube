@@ -13,10 +13,19 @@
     = f.label :domain
     = f.text_field :domain
   .field
-    = f.label :os
+    = f.label :os, 'OS'
     = f.text_field :os
   .field
-    = f.label :pci_scope
+    = f.label :pci_scope, 'PCI Scope'
     = f.text_field :pci_scope
+  .field
+    = f.label :ipv4_address, 'IPv4 Address'
+    = f.text_field :ipv4_address
+  .field
+    = f.label :mac_address, 'MAC Address'
+    = f.text_field :mac_address
+  .field
+    = f.label :ptr_record, 'PTR Record'
+    = f.text_field :ptr_record
   .actions
     = f.submit 'Save'

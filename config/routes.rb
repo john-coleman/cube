@@ -7,8 +7,6 @@ Rails.application.routes.draw do
 
   resources :ipv4_addresses
 
-  resources :i_pv4_addresses
-
   resources :devices
 
   # The priority is based upon order of creation: first created -> highest priority.

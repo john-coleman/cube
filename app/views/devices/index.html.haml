@@ -5,6 +5,10 @@
     %th Hostname
     %th Domain
     %th OS
+    %th IPv4 Address
+    %th Creator
+    %th Owner
+    %th Updated
     %th
     %th
     %th
@@ -14,6 +18,10 @@
       %td= device.hostname
       %td= device.domain
       %td= device.os
+      %td= device.ipv4_address
+      %td= device.creator
+      %td= device.owner
+      %td= device.updated_at
       %td= link_to 'Show', device
       %td= link_to 'Edit', edit_device_path(device)
       %td= link_to 'Destroy', device, :method => :delete, :data => { :confirm => 'Are you sure?' }

@@ -24,11 +24,19 @@ RSpec.describe ADComputerAccountsController, type: :controller do
   # ADComputerAccount. As you add validations to ADComputerAccount, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
-    skip('Add a hash of attributes valid for your model')
+    {
+      domain: 'ad.domain.com',
+      machine_account: 'a-machine-acc01',
+      ou: 'OU=Foo,OU=Computers,DC=a,DC=domain,DC=com'
+    }
   end
 
   let(:invalid_attributes) do
-    skip('Add a hash of attributes invalid for your model')
+    {
+      domain: '@.domain.com!',
+      machine_account: '@_machine-acc01',
+      ou: 'OU=#Foo,OU= Computers,DC=a,DC=domain,OU=com'
+    }
   end
 
   # This should return the minimal set of values that should be in the session
@@ -103,25 +111,31 @@ RSpec.describe ADComputerAccountsController, type: :controller do
   describe 'PUT update' do
     describe 'with valid params' do
       let(:new_attributes) do
-        skip('Add a hash of attributes valid for your model')
+        {
+          domain: 'foo.domain.com',
+          machine_account: 'b-machine-acc01',
+          ou: 'OU=Bar,OU=Computers,DC=a,DC=domain,DC=com'
+        }
       end
 
       it 'updates the requested ad_computer_account' do
         ad_computer_account = ADComputerAccount.create! valid_attributes
         put :update, { id: ad_computer_account.to_param, ad_computer_account: new_attributes }, valid_session
         ad_computer_account.reload
-        skip('Add assertions for updated state')
+        expect(ad_computer_account.domain).to eq(new_attributes[:domain])
+        expect(ad_computer_account.machine_account).to eq(new_attributes[:machine_account])
+        expect(ad_computer_account.ou).to eq(new_attributes[:ou])
       end
 
       it 'assigns the requested ad_computer_account as @ad_computer_account' do
         ad_computer_account = ADComputerAccount.create! valid_attributes
-        put :update, { id: ad_computer_account.to_param, ad_computer_account: valid_attributes }, valid_session
+        put :update, { id: ad_computer_account.to_param, ad_computer_account: new_attributes }, valid_session
         expect(assigns(:ad_computer_account)).to eq(ad_computer_account)
       end
 
       it 'redirects to the ad_computer_account' do
         ad_computer_account = ADComputerAccount.create! valid_attributes
-        put :update, { id: ad_computer_account.to_param, ad_computer_account: valid_attributes }, valid_session
+        put :update, { id: ad_computer_account.to_param, ad_computer_account: new_attributes }, valid_session
         expect(response).to redirect_to(ad_computer_account)
       end
     end

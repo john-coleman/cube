@@ -24,11 +24,19 @@ RSpec.describe IPv4AddressesController, type: :controller do
   # IPv4Address. As you add validations to IPv4Address, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
-    skip('Add a hash of attributes valid for your model')
+    {
+      ipv4_address: '10.20.30.40',
+      mac_address: '01:45:89:AB:CD:EF',
+      ptr_record: 'a-machine-acc01.a.domain.com.'
+    }
   end
 
   let(:invalid_attributes) do
-    skip('Add a hash of attributes invalid for your model')
+    {
+      ipv4_address: '10.256.300.200',
+      mac_address: '01:GH:23:IJ:45:ZZ',
+      ptr_record: 'a-machine-acc01.'
+    }
   end
 
   # This should return the minimal set of values that should be in the session
@@ -103,14 +111,20 @@ RSpec.describe IPv4AddressesController, type: :controller do
   describe 'PUT update' do
     describe 'with valid params' do
       let(:new_attributes) do
-        skip('Add a hash of attributes valid for your model')
+        {
+          ipv4_address: '10.20.30.50',
+          mac_address: '01:45:89:AB:CD:F0',
+          ptr_record: 'new-machine-acc01.a.domain.com.'
+        }
       end
 
       it 'updates the requested ipv4_address' do
         ipv4_address = IPv4Address.create! valid_attributes
         put :update, { id: ipv4_address.to_param, ipv4_address: new_attributes }, valid_session
         ipv4_address.reload
-        skip('Add assertions for updated state')
+        expect(ipv4_address.ipv4_address).to eq(new_attributes[:ipv4_address])
+        expect(ipv4_address.mac_address).to eq(new_attributes[:mac_address])
+        expect(ipv4_address.ptr_record).to eq(new_attributes[:ptr_record])
       end
 
       it 'assigns the requested ipv4_address as @ipv4_address' do

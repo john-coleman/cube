@@ -12,3 +12,7 @@ CollectionMethods:
   Enabled: false
 LineLength:
   Max: 160
+
+MethodLength:
+  CountComments: false  # count full line comments?
+  Max: 20

@@ -23,12 +23,35 @@ RSpec.describe DevicesController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # Device. As you add validations to Device, be sure to
   # adjust the attributes here as well.
+  let(:creator) { FactoryGirl.build :user, username: 'box.creator', name: 'Box Creator' }
+  let(:owner) { FactoryGirl.build :user, username: 'box.owner', name: 'Box Owner' }
+  let(:ipv4) { FactoryGirl.build :ipv4_address }
   let(:valid_attributes) do
-    skip('Add a hash of attributes valid for your model')
+    {
+      domain: 'a-domain.com',
+      hostname: 'a-device-01',
+      os: 'Windows',
+      pci_scope: 'true'
+    }
+  end
+
+  let(:valid_attributes_with_ipv4_address) do
+    {
+      domain: 'a-domain.com',
+      hostname: 'a-device-01',
+      os: 'Windows',
+      pci_scope: 'true',
+      ipv4_address: ipv4.ipv4_address
+    }
   end
 
   let(:invalid_attributes) do
-    skip('Add a hash of attributes invalid for your model')
+    {
+      domain: '@non-domain.\com',
+      hostname: 'an_invalid.hostname!',
+      os: 'AIX',
+      pci_scope: 'maybe?'
+    }
   end
 
   # This should return the minimal set of values that should be in the session
@@ -87,6 +110,31 @@ RSpec.describe DevicesController, type: :controller do
       end
     end
 
+    describe 'with valid params with ipv4_address' do
+      it 'creates a new Device' do
+        expect do
+          post :create, { device: valid_attributes_with_ipv4_address }, valid_session
+        end.to change(Device, :count).by(1)
+      end
+
+      it 'creates a new Device' do
+        expect do
+          post :create, { device: valid_attributes_with_ipv4_address }, valid_session
+        end.to change(IPv4Address, :count).by(1)
+      end
+
+      it 'assigns a newly created device as @device' do
+        post :create, { device: valid_attributes_with_ipv4_address }, valid_session
+        expect(assigns(:device)).to be_a(Device)
+        expect(assigns(:device)).to be_persisted
+      end
+
+      it 'redirects to the created device' do
+        post :create, { device: valid_attributes_with_ipv4_address }, valid_session
+        expect(response).to redirect_to(Device.last)
+      end
+    end
+
     describe 'with invalid params' do
       it 'assigns a newly created but unsaved device as @device' do
         post :create, { device: invalid_attributes }, valid_session
@@ -103,25 +151,69 @@ RSpec.describe DevicesController, type: :controller do
   describe 'PUT update' do
     describe 'with valid params' do
       let(:new_attributes) do
-        skip('Add a hash of attributes valid for your model')
+        {
+          domain: 'new-domain.com',
+          hostname: 'new-device-01',
+          os: 'Cisco',
+          pci_scope: 'true'
+        }
       end
 
       it 'updates the requested device' do
         device = Device.create! valid_attributes
         put :update, { id: device.to_param, device: new_attributes }, valid_session
         device.reload
-        skip('Add assertions for updated state')
+        expect(device.domain).to eq(new_attributes[:domain])
+        expect(device.hostname).to eq(new_attributes[:hostname])
+        expect(device.os).to eq(new_attributes[:os])
+        expect(device.pci_scope).to eq(new_attributes[:pci_scope])
       end
 
       it 'assigns the requested device as @device' do
         device = Device.create! valid_attributes
-        put :update, { id: device.to_param, device: valid_attributes }, valid_session
+        put :update, { id: device.to_param, device: new_attributes }, valid_session
         expect(assigns(:device)).to eq(device)
       end
 
       it 'redirects to the device' do
         device = Device.create! valid_attributes
-        put :update, { id: device.to_param, device: valid_attributes }, valid_session
+        put :update, { id: device.to_param, device: new_attributes }, valid_session
+        expect(response).to redirect_to(device)
+      end
+    end
+
+    describe 'with valid params with ipv4_address' do
+      let(:new_ipv4) { FactoryGirl.build :ipv4_address }
+      let(:new_attributes_with_ipv4_address) do
+        {
+          domain: 'new-domain.com',
+          hostname: 'new-device-01',
+          os: 'Cisco',
+          pci_scope: 'true',
+          ipv4_address: new_ipv4.ipv4_address
+        }
+      end
+
+      it 'updates the requested device' do
+        device = Device.create! valid_attributes
+        put :update, { id: device.to_param, device: new_attributes_with_ipv4_address }, valid_session
+        device.reload
+        expect(device.domain).to eq(new_attributes_with_ipv4_address[:domain])
+        expect(device.hostname).to eq(new_attributes_with_ipv4_address[:hostname])
+        expect(device.os).to eq(new_attributes_with_ipv4_address[:os])
+        expect(device.pci_scope).to eq(new_attributes_with_ipv4_address[:pci_scope])
+        expect(device.ipv4_address).to eq(new_attributes_with_ipv4_address[:ipv4_address])
+      end
+
+      it 'assigns the requested device as @device' do
+        device = Device.create! valid_attributes
+        put :update, { id: device.to_param, device: new_attributes_with_ipv4_address }, valid_session
+        expect(assigns(:device)).to eq(device)
+      end
+
+      it 'redirects to the device' do
+        device = Device.create! valid_attributes
+        put :update, { id: device.to_param, device: new_attributes_with_ipv4_address }, valid_session
         expect(response).to redirect_to(device)
       end
     end

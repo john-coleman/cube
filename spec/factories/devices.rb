@@ -2,10 +2,11 @@ FactoryGirl.define do
   factory :device do
 
     sequence(:hostname) { |n| "host#{n}" }
+    domain 'factory.girl'
     creator
     owner
+    # TODO
     # ad_computer_account
-    # ipv4_address
     os 'cisco'
     pci_scope false
 
@@ -19,6 +20,10 @@ FactoryGirl.define do
 
     trait :windows do
       os 'windows'
+    end
+
+    trait :with_ipv4_address do
+      ipv4_addresses { [FactoryGirl.build(:ipv4_address)] }
     end
   end
 

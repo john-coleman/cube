@@ -6,7 +6,7 @@ class Device < ActiveRecord::Base
 
   has_one :ad_computer_account
 
-  has_many :device_ipv4_addresses
+  has_many :device_ipv4_addresses, dependent: :destroy
   has_many :ipv4_addresses, through: :device_ipv4_addresses
 
   validates :domain, allow_nil: true, allow_blank: true,
@@ -28,5 +28,20 @@ class Device < ActiveRecord::Base
 
   def downcase_os
     os.downcase!
+  end
+
+  def ipv4_address
+    return '' unless ipv4_addresses.first
+    ipv4_addresses.first.ipv4_address
+  end
+
+  def mac_address
+    return '' unless ipv4_addresses.first
+    ipv4_addresses.first.mac_address
+  end
+
+  def ptr_record
+    return '' unless ipv4_addresses.first
+    ipv4_addresses.first.ipv4_address
   end
 end

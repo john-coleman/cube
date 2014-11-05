@@ -3,26 +3,46 @@ require 'rails_helper'
 RSpec.describe Device, type: :model do
   subject { FactoryGirl.build :device }
 
-  context 'with valid input' do
-    subject { FactoryGirl.build :device, params }
-
-    let(:creator) { FactoryGirl.build :user, username: 'box.creator', name: 'Box Creator' }
-    let(:owner) { FactoryGirl.build :user, username: 'box.owner', name: 'Box Owner' }
-    let(:params) do
-      {
-        creator_id: creator.id,
-        domain: 'a-domain.com',
-        hostname: 'a-device-01',
-        owner_id: owner.id,
-        os: 'Windows',
-        pci_scope: true
-      }
-    end
-
-    it { is_expected.to be_valid }
+  let(:creator) { FactoryGirl.build :user, username: 'box.creator', name: 'Box Creator' }
+  let(:owner) { FactoryGirl.build :user, username: 'box.owner', name: 'Box Owner' }
+  let(:ipv4_address) { FactoryGirl.build :ipv4_address }
+  let(:params) do
+    {
+      creator_id: creator.id,
+      domain: 'a-domain.com',
+      hostname: 'a-device-01',
+      owner_id: owner.id,
+      os: 'Windows',
+      pci_scope: true
+    }
   end
 
-  context 'with invalid input' do
+  describe 'with valid input' do
+    subject { FactoryGirl.build :device, params }
+
+    it { is_expected.to be_valid }
+
+    it 'validates mixed-case os value' do
+      subject.os = 'WiNdOws'
+      is_expected.to be_valid
+    end
+
+    describe '#ipv4_address' do
+      context 'with ipv4_address' do
+        it 'returns ip address' do
+          subject.ipv4_addresses << ipv4_address
+          expect(subject.ipv4_address).to eq(ipv4_address.ipv4_address)
+        end
+      end
+      context 'without ipv4_address' do
+        it 'returns empty string' do
+          expect(subject.ipv4_address).to be_blank
+        end
+      end
+    end
+  end
+
+  describe 'with invalid input' do
     it 'does not validate domain' do
       subject.domain = '@non-domain.\com'
       expect(subject).to be_invalid
@@ -50,4 +70,5 @@ RSpec.describe Device, type: :model do
       is_expected.to be_invalid
     end
   end
+
 end
