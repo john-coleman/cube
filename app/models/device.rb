@@ -6,8 +6,10 @@ class Device < ActiveRecord::Base
 
   has_one :ad_computer_account
 
-  has_many :device_ipv4_addresses, dependent: :destroy
+  has_many :device_ipv4_addresses
   has_many :ipv4_addresses, through: :device_ipv4_addresses
+
+  validate :validate_fqdn_uniqueness
 
   validates :domain, allow_nil: true, allow_blank: true,
                      length: { in: 1..252, message: 'must be between 1-252 characters' },
@@ -43,5 +45,10 @@ class Device < ActiveRecord::Base
   def ptr_record
     return '' unless ipv4_addresses.first
     ipv4_addresses.first.ipv4_address
+  end
+
+  def validate_fqdn_uniqueness
+    errors[:device] << "Must be a unique fqdn #{hostname}.#{domain}" if Device.where(
+      hostname: hostname, domain: domain).where.not(id: id).exists?
   end
 end

@@ -71,4 +71,24 @@ RSpec.describe Device, type: :model do
     end
   end
 
+  describe 'with existing fqdn' do
+    subject { FactoryGirl.build :device, params }
+
+    let(:initial_host) { FactoryGirl.build(:device, params) }
+    let(:params) do
+      {
+        creator_id: creator.id,
+        domain: 'a-domain.com',
+        hostname: 'a-device-02',
+        owner_id: owner.id,
+        os: 'Windows',
+        pci_scope: true
+      }
+    end
+
+    it 'does not validate duplicate fqdn' do
+      initial_host.save
+      is_expected.to be_invalid
+    end
+  end
 end

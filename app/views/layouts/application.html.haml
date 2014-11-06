@@ -1,0 +1,30 @@
+!!!
+%html.full-height{'ng-app' => 'Cube'}
+  %head
+    / %title= content_for?(:title) ? yield(:title) : Cube::Application
+    %title= 'Cube::Application'
+    = stylesheet_link_tag    'application', :media => 'all'
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+
+  %body.full-height
+    .div.main-container
+      .div.col-md-1
+        %ul.nav.nav-pills.nav-stacked.invert
+          %li= image_tag 'cube-logo.png', class: 'cube-logo'
+          %li= link_to('Home', root_url)
+          %li= link_to('Devices', devices_url)
+          %li= link_to('IPv4', ipv4_addresses_url)
+          %li= link_to('AD', ad_computer_accounts_url)
+          %li= link_to('Users', users_url)
+
+      .container.full-height.footer-padding
+        / - flash.each do |message|
+        /   %div{:class => ['alert-message', flash_class(message.first)]}
+        /     %button{:type => 'button', :class => 'close', 'data-dismiss' => 'alert'} &times;
+        /     = message.try(:last)
+        = yield
+
+    .div.main-footer
+      %p.text-centered= link_to('Cube Issue Tracker', 'https://issues.example.com/secure/RapidBoard.jspa?rapidView=407', target: 'blank')
+      %p.text-centered= mail_to('cube@example.com', 'Email Cube').html_safe
