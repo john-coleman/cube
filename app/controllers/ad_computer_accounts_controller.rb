@@ -63,12 +63,10 @@ class ADComputerAccountsController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_ad_computer_account
     @ad_computer_account = ADComputerAccount.find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def ad_computer_account_params
     params.require(:ad_computer_account).permit(:domain, :machine_account, :ou)
   end

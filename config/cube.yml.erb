@@ -1,0 +1,49 @@
+<%= @app_environment %>:
+  omniauth:
+    auth_method: <%= @config["omniauth"]["auth_method"] %>
+    base: <%= @config["omniauth"]["base"] %>
+    bind_dn: <%= @config["omniauth"]["bind_dn"] %>
+    host: <%= @config["omniauth"]["host"] %>
+    method: <%= @config["omniauth"]["method"] %>
+    password: <%= @config["omniauth"]["password"] %>
+    port: <%= @config["omniauth"]["port"] %>
+    title: <%= @config["omniauth"]["title"] %>
+    uid: <%= @config["omniauth"]["uid"] %>
+    ldap_group: <%= @config["omniauth"]["ldap_group"] %>
+  mailer:
+    host: <%= @config["cube"]["cube_url"] || @cube_url %>
+    delivery_method: <%= @config["mailer"]["delivery_method"] %>
+    default_options:
+      from: <%= @config["mailer"]["from"] %>
+      reply_to: <%= @config["mailer"]["reply_to"] %>
+      bcc: <%= @config["mailer"]["bcc"] %>
+<% if @config["mailer"]["smtp_options"] %>
+    smtp_settings:
+      address: <%= @config["mailer"]["smtp_options"]["address"] %>
+      enable_starttls_auto: <%= @config["mailer"]["smtp_options"]["enable_starttls_auto"] %>
+      port: <%= @config["mailer"]["smtp_options"]["port"] %>
+      domain: <%= @config["mailer"]["smtp_options"]["domain"] %>
+      user_name: <%= @config["mailer"]["smtp_options"]["user_name"] %>
+      password: <%= @config["mailer"]["smtp_options"]["password"] %>
+      authentication: <%= @config["mailer"]["smtp_options"]["authentication"] %>
+<% end %>
+  cube:
+    email_domain: <%= @config['cube']['email_domain'] %>
+    maintainer_email: <%= @config['cube']['maintainer_email'] %>
+    maintainer_email_title: <%= @config['cube']['maintainer_email_title'] %>
+    maintainer_url: <%= @config['cube']['maintainer_url'] %>
+    maintainer_url_title: <%= @config['cube']['maintainer_url_title'] %>
+    <% if @config['cube']['log'] %>
+    log:
+      app_name: <%= @config['cube']['log']['app_name'] || "cube" %>
+      logger: <%= @config['cube']['log']['logger'] || "file" %>
+      <% case @config['cube']['log']['logger']
+      when "file" %>
+        <% if @config['cube']['log']['log_file'] %>
+      log_file: <%= @config['cube']['log']['log_file'] %>
+        <% end %>
+      <% when "syslog" %>
+      log_facility: <%= @config['cube']['log']['log_facility'] || "syslog" %>
+      <% end %>
+    <% end %>
+    ssl_enabled: <%= @config['cube']['ssl_enabled'] %>

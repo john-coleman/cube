@@ -19,16 +19,16 @@ RSpec.describe UsersController, type: :routing do
       expect(get: '/users/1/edit').to route_to('users#edit', id: '1')
     end
 
-    it 'routes to #create' do
-      expect(post: '/users').to route_to('users#create')
+    it 'does not route to #create' do
+      expect(post: '/users').to_not route_to('users#create')
     end
 
     it 'routes to #update' do
       expect(put: '/users/1').to route_to('users#update', id: '1')
     end
 
-    it 'routes to #destroy' do
-      expect(delete: '/users/1').to route_to('users#destroy', id: '1')
+    it 'does not route to #destroy' do
+      expect(delete: '/users/1').to_not route_to('users#destroy', id: '1')
     end
 
   end

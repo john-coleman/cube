@@ -1,7 +1,7 @@
-Rails.application.routes.draw do
+Cube::Application.routes.draw do
+  # The priority is based upon order of creation: first created -> highest priority.
+  # See how all your routes lay out with "rake routes".
   get 'home/index'
-
-  resources :users
 
   resources :ad_computer_accounts
 
@@ -9,11 +9,18 @@ Rails.application.routes.draw do
 
   resources :devices
 
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
+  resources :ldap_users, only: [:index]
+
+  get '/login', to: 'sessions#new', as: :login
+  post '/auth/ldap/callback', to: 'sessions#create'
+  get '/auth/ldap/callback', to: 'sessions#create'
+  get '/auth/failure', to: 'sessions#failure'
+  get '/logout', to: 'sessions#destroy'
+
+  resources :users, except: [:create, :destroy]
 
   # You can have the root of your site routed with "root"
-  root 'home#index'
+  root to: 'home#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

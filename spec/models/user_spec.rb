@@ -4,7 +4,7 @@ RSpec.describe User, type: :model do
   subject { FactoryGirl.build :user }
 
   let(:username) { 'some_user_id' }
-  let(:user_email) { 'test@example.com' }
+  let(:user_email) { 'test@mydomain.com' }
 
   describe '.from_omniauth' do
     let(:omniauth_params) { { 'samaccountname' => [username], 'mail' => [user_email], 'displayname' => ['name'] } }
@@ -38,12 +38,12 @@ RSpec.describe User, type: :model do
       subject { User.new(username: username).email }
 
       it 'should be generated from user_name' do
-        is_expected.to eq("#{username}@example.com")
+        is_expected.to match(/#{username}@\w+/)
       end
     end
 
     it 'returns lowercase email' do
-      expect(User.new(email: 'Test@example.com').email).to eq('test@example.com')
+      expect(User.new(email: 'Test@mydomain.com').email).to eq('test@mydomain.com')
     end
   end
 end

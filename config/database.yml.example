@@ -3,8 +3,8 @@ default: &default
   encoding: utf8
   reconnect: false
   pool: 5
-  username: srs
-  password: srs
+  username: cube
+  password: cube
   host: localhost
   timeout: 5000
 

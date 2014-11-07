@@ -4,8 +4,11 @@ class User < ActiveRecord::Base
   has_many :created_devices, class_name: 'Device', foreign_key: 'creator_id'
   has_many :owned_devices, class_name: 'Device', foreign_key: 'owner_id'
 
+  validates :email, format: { with: /\A[\w\-.]+@[\w\-.]+\z/, message: 'must be valid' }
+  validates :name, format: { with: /\A[a-zA-Z\s.\-]+\z/, message: 'must be valid' }
   # validates :role, presence: true, inclusion: ROLES
-  validates :username, uniqueness: true, presence: true
+  validates :username, uniqueness: true, presence: true,
+                       format: { with: /\A[\w\-.]+\z/, message: 'must be valid' }
 
   # before_validation :set_role, on: :create
 
@@ -22,7 +25,7 @@ class User < ActiveRecord::Base
     if attributes['email']
       attributes['email'].downcase
     elsif username
-      "#{username}@example.com".downcase
+      "#{username}@#{CONFIG['cube']['email_domain']}".downcase
     end
   end
 

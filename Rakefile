@@ -15,7 +15,7 @@ if Rails.env.test? || Rails.env.development?
   end
 end
 
-Rails.application.load_tasks
+Cube::Application.load_tasks
 
 desc 'Run Cube Tests'
 task :cube_test do

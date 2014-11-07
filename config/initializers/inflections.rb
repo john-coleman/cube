@@ -16,8 +16,9 @@
 # end
 
 ActiveSupport::Inflector.inflections(:en) do |inflect|
-  inflect.acronym 'IPv4'
   inflect.acronym 'AD'
-  inflect.acronym 'OU'
+  inflect.acronym 'IPv4'
   inflect.acronym 'MAC'
+  inflect.acronym 'OU'
+  inflect.acronym 'PCI'
 end

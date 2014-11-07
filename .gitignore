@@ -21,7 +21,7 @@
 # Ignore configuration files
 /config/database.yml
 /config/newrelic.yml
-/config/srs.yml
+/config/cube.yml
 
 # Ignore documentation
 /doc
