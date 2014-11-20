@@ -19,9 +19,10 @@
 /public/assets
 
 # Ignore configuration files
+/config/cube.yml
 /config/database.yml
 /config/newrelic.yml
-/config/cube.yml
+/config/secrets.yml
 
 # Ignore documentation
 /doc
