@@ -31,7 +31,7 @@
     uid: <%= @config['omniauth']['uid'] %>
     ldap_group: <%= @config['omniauth']['ldap_group'] %>
   mailer:
-    host: <%= @config['cube']['cube_url'] || @cube_url %>
+    host: <%= @config['mailer']['host'] || @cube_url %>
     delivery_method: <%= @config['mailer']['delivery_method'] %>
     default_options:
       from: <%= @config['mailer']['from'] %>
