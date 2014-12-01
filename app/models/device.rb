@@ -23,8 +23,8 @@ class Device < ActiveRecord::Base
   validates :pci_scope, allow_nil: true, allow_blank: true,
                         inclusion: { in: ['true', 'false', true, false], message: "must be 'true' or 'false' at present" }
 
-  # validates_associated :domain
-  # validates_associated :ipv4_address
+  # validates_associated :ad_computer_account
+  validates_associated :ipv4_addresses
 
   before_validation :downcase_os
 

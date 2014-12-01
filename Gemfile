@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.1.6'
+gem 'rails', '~> 4.1'
 # Use unicorn as the app server. Why: https://blog.engineyard.com/2014/ruby-app-server-arena-pt2
 gem 'unicorn'
 gem 'mysql2'
@@ -77,10 +77,13 @@ end
 
 group :test, :development do
   gem 'awesome_print'
-  # gem 'debugger'
   gem 'factory_girl_rails'
   gem 'faker'
+  gem 'pry'
+  gem 'pry-remote'
   gem 'pry-rails'
+  gem 'pry-stack_explorer'
+  gem 'pry-byebug'
   gem 'rails-erd'
   gem 'rspec-rails', '~> 3.0.0'
   gem 'rubocop'
