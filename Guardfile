@@ -9,6 +9,10 @@ guard 'bundler' do
   # watch(/^.+\.gemspec/)
 end
 
+# guard 'bundler_audit', run_on_start: true do
+#   watch('Gemfile.lock')
+# end
+
 guard 'migrate' do
   watch(%r{^db/migrate/(\d+).+\.rb})
   watch('db/seeds.rb')
@@ -57,6 +61,10 @@ group :red_green_refactor, halt_on_fail: true do
     watch(%r{.+\.rb$})
     watch(%r{(?:.+/)?\.rubocop\.yml$}) { |m| File.dirname(m[0]) }
   end
+
+  # guard 'yaml' do
+  #   watch(%r{^config/(.*).yml})
+  # end
 
   guard 'brakeman', run_on_start: false, quiet: true do
     watch(%r{^app/.+\.(erb|haml|rhtml|rb)$})

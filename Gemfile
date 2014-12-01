@@ -47,10 +47,12 @@ group :development do
   gem 'guard'
   gem 'guard-brakeman'
   gem 'guard-bundler'
+  # gem 'guard-bundler-audit'
   gem 'guard-cucumber'
   gem 'guard-migrate'
   gem 'guard-rspec', '>= 4.2.6'
   gem 'guard-rubocop'
+  # gem 'guard-yaml'
   # gem 'letter_opener'
   gem 'quiet_assets'
   # Use sqlite3 as the database for Active Record if you don't have MySQL installed

@@ -3,19 +3,38 @@ AllCops:
   Exclude:
     - 'db/schema.rb'
     - 'lib/ldap_resource.rb'
+    - 'lib/tasks/*'
+    - '*file'
+    - 'bin/*'
 
-ClassAndModuleChildren:
+Style/ClassAndModuleChildren:
+  Enabled: false
+Style/CollectionMethods:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Style/FormatString:
+  Enabled: false
+Style/SingleLineBlockParams:
+  Enabled: false
+Style/NumericLiterals:
+  MinDigits: 9
+Style/MultilineOperationIndentation:
   Enabled: false
 
-CollectionMethods:
-  Enabled: false
-
-Documentation:
-  Enabled: false
-
-LineLength:
+Metrics/LineLength:
   Max: 160
+Metrics/MethodLength:
+  Max: 35
+Metrics/ClassLength:
+  Enabled: false
+Metrics/CyclomaticComplexity:
+  Enabled: false
+Metrics/PerceivedComplexity:
+  Max: 13
+Metrics/AbcSize:
+  Enabled: false
 
-MethodLength:
-  CountComments: false  # count full line comments?
-  Max: 20
+
+Rails/DefaultScope:
+  Enabled: false
