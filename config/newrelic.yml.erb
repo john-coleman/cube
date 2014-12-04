@@ -40,22 +40,22 @@ common: &default_settings
   #       - Ajax Service
   #       - All Services
   #
-  app_name: <% @config['newrelic']['app_name'] || 'Cube' %>
+  app_name: <%= @config['newrelic']['app_name'] || 'Cube' %>
 
   # When "true", the agent collects performance data about your
   # application and reports this data to the New Relic service at
   # newrelic.com. This global switch is normally overridden for each
   # environment below. (formerly called 'enabled')
-  monitor_mode: <% @config['newrelic']['monitor_mode'] || true %>
+  monitor_mode: <%= @config['newrelic']['monitor_mode'] || true %>
 
   # Developer mode should be off in every environment but
   # development as it has very high overhead in memory.
-  developer_mode: <% @config['newrelic']['developer_mode'] || false %>
+  developer_mode: <%= @config['newrelic']['developer_mode'] || false %>
 
   # The newrelic agent generates its own log file to keep its logging
   # information separate from that of your application. Specify its
   # log level here.
-  log_level: <% @config['newrelic']['log_level'] || 'info' %>
+  log_level: <%= @config['newrelic']['log_level'] || 'info' %>
 
   # Optionally set the path to the log file This is expanded from the
   # root directory (may be relative or absolute, e.g. 'log/' or
@@ -81,7 +81,7 @@ common: &default_settings
   browser_monitoring:
       # By default the agent automatically injects the monitoring JavaScript
       # into web pages. Set this attribute to false to turn off this behavior.
-      auto_instrument: <% @config['newrelic']['browser_monitoring']['auto_instrument'] || true %>
+      auto_instrument: <%= @config['newrelic']['browser_monitoring']['auto_instrument'] || true %>
 
   # Proxy settings for connecting to the New Relic server.
   #
