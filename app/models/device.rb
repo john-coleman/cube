@@ -29,7 +29,7 @@ class Device < ActiveRecord::Base
   before_validation :downcase_os
 
   def downcase_os
-    os.downcase!
+    os.downcase! if os.is_a?(String)
   end
 
   def ipv4_address
