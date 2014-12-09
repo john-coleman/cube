@@ -1,5 +1,6 @@
 <%= @app_environment %>:
   cube:
+    api_key: <%= @config['cube']['api_key'] %>
     email_domain: <%= @config['cube']['email_domain'] %>
     maintainer_email: <%= @config['cube']['maintainer_email'] %>
     maintainer_email_title: <%= @config['cube']['maintainer_email_title'] %>

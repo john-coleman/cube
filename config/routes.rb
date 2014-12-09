@@ -3,6 +3,10 @@ Cube::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
   get 'home/index'
 
+  namespace :api, defaults: { format: :json } do
+    resources :devices, only: [:create]
+  end
+
   resources :ad_computer_accounts
 
   resources :ipv4_addresses

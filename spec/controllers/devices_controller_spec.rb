@@ -90,7 +90,7 @@ RSpec.describe DevicesController, type: :controller do
         end.to change(Device, :count).by(1)
       end
 
-      it 'creates a new Device' do
+      it 'creates a new IPv4Address' do
         expect do
           post :create, { device: valid_attributes_with_ipv4_address }, valid_session
         end.to change(IPv4Address, :count).by(1)

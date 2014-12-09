@@ -8,7 +8,7 @@ FactoryGirl.define do
     # TODO
     # ad_computer_account
     os 'cisco'
-    pci_scope false
+    pci_scope 'false'
 
     trait :centos do
       os 'centos'
