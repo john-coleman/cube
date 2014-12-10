@@ -2,7 +2,7 @@ class DevicesController < ApplicationController
   before_action :set_device, only: [:show, :edit, :update, :destroy]
 
   def index
-    @devices = Device.all
+    @devices = Device.includes(:ipv4_addresses).all
   end
 
   def show
@@ -16,11 +16,10 @@ class DevicesController < ApplicationController
   end
 
   def create
-    @device = Device.new(device_params)
-    @device.save
-    Cube::DeviceResource.new.device_ipv4_addresses(@device, device_ipv4_params) if device_ipv4_params
+    @device = Device.create(device_params)
+    Cube::DeviceResource.new.device_ipv4_addresses(@device, device_ipv4_params)
     respond_to do |format|
-      if @device.persisted?
+      if @device.save
         format.html { redirect_to @device, notice: 'Device was successfully created.' }
         format.json { render :show, status: :created, location: @device }
       else
@@ -31,7 +30,7 @@ class DevicesController < ApplicationController
   end
 
   def update
-    Cube::DeviceResource.new.device_ipv4_addresses(@device, device_ipv4_params) if device_ipv4_params
+    Cube::DeviceResource.new.device_ipv4_addresses(@device, device_ipv4_params)
     respond_to do |format|
       if @device.update(device_params)
         format.html { redirect_to @device, notice: 'Device was successfully updated.' }
@@ -62,6 +61,6 @@ class DevicesController < ApplicationController
   end
 
   def device_params
-    params.require(:device).permit(:hostname, :domain, :os, :pci_scope, :ipv4_addresses)
+    params.require(:device).permit(:hostname, :domain, :os, :pci_scope)
   end
 end

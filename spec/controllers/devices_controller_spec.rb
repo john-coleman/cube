@@ -1,10 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe DevicesController, type: :controller do
-  let(:creator) { FactoryGirl.build :user, username: 'box.creator', name: 'Box Creator' }
-  let(:owner) { FactoryGirl.build :user, username: 'box.owner', name: 'Box Owner' }
-  let(:user) { FactoryGirl.create(:user) }
-  let(:ipv4) { FactoryGirl.build :ipv4_address }
   let(:attributes) do
     {
       domain: 'a-domain.com',
@@ -13,7 +9,8 @@ RSpec.describe DevicesController, type: :controller do
       pci_scope: 'true'
     }
   end
-  let(:ipv4_attributes) { [ipv4_address: ipv4.ipv4_address, mac_address: ipv4.mac_address] }
+  let(:creator) { FactoryGirl.build :user, username: 'box.creator', name: 'Box Creator' }
+  let(:device) { FactoryGirl.create :device, attributes }
   let(:invalid_attributes) do
     {
       domain: '@non-domain.\com',
@@ -22,11 +19,15 @@ RSpec.describe DevicesController, type: :controller do
       pci_scope: 'maybe?'
     }
   end
+  let(:ipv4) { FactoryGirl.build :ipv4_address }
+  let(:ipv4_attributes) { [ipv4_address: ipv4.ipv4_address, mac_address: ipv4.mac_address] }
+  let(:owner) { FactoryGirl.build :user, username: 'box.owner', name: 'Box Owner' }
+  let(:user) { FactoryGirl.create(:user) }
   let(:valid_session) { { user_id: user.id } }
 
   describe 'GET index' do
     it 'assigns all devices as @devices' do
-      device = Device.create! attributes
+      device
       get :index, {}, valid_session
       expect(assigns(:devices)).to eq([device])
     end
@@ -34,7 +35,7 @@ RSpec.describe DevicesController, type: :controller do
 
   describe 'GET show' do
     it 'assigns the requested device as @device' do
-      device = Device.create! attributes
+      device
       get :show, { id: device.to_param }, valid_session
       expect(assigns(:device)).to eq(device)
     end
@@ -49,7 +50,7 @@ RSpec.describe DevicesController, type: :controller do
 
   describe 'GET edit' do
     it 'assigns the requested device as @device' do
-      device = Device.create! attributes
+      device
       get :edit, { id: device.to_param }, valid_session
       expect(assigns(:device)).to eq(device)
     end
@@ -107,7 +108,7 @@ RSpec.describe DevicesController, type: :controller do
     context 'with invalid params' do
       let(:ipv4_attributes) { [{ ipv4_address: 'not.an.ip.address', mac_address: 'not.a.mac.address' }] }
 
-      it 'assigns a newly created but unsaved device as @device' do
+      it 'assigns a newly initialized but unsaved device as @device' do
         post :create, { device: invalid_attributes, ipv4_addresses: ipv4_attributes }, valid_session
         expect(assigns(:device)).to be_a_new(Device)
       end
@@ -121,10 +122,14 @@ RSpec.describe DevicesController, type: :controller do
     context 'with invalid IPv4 params' do
       let(:ipv4_attributes) { [{ ipv4_address: 'not.an.ip.address', mac_address: 'not.a.mac.address' }] }
 
-      it 'raises validation error' do
-        expect do
-          post :create, { device: attributes, ipv4_addresses: ipv4_attributes }, format: :json
-        end.to raise_error(ActiveRecord::RecordInvalid)
+      it 'device is invalid' do
+        post :create, { device: attributes, ipv4_addresses: ipv4_attributes }, valid_session
+        expect(assigns(:device)).to be_invalid
+      end
+
+      it 'ipv4_address is not persisted' do
+        post :create, { device: attributes, ipv4_addresses: ipv4_attributes }, valid_session
+        expect(assigns(:device).ipv4_addresses.last).to_not be_persisted
       end
     end
   end
@@ -141,7 +146,7 @@ RSpec.describe DevicesController, type: :controller do
       end
 
       it 'updates the requested device' do
-        device = Device.create! attributes
+        device
         put :update, { id: device.to_param, device: new_attributes }, valid_session
         device.reload
         expect(device.domain).to eq(new_attributes[:domain])
@@ -151,13 +156,13 @@ RSpec.describe DevicesController, type: :controller do
       end
 
       it 'assigns the requested device as @device' do
-        device = Device.create! attributes
+        device
         put :update, { id: device.to_param, device: new_attributes }, valid_session
         expect(assigns(:device)).to eq(device)
       end
 
       it 'redirects to the device' do
-        device = Device.create! attributes
+        device
         put :update, { id: device.to_param, device: new_attributes }, valid_session
         expect(response).to redirect_to(device)
       end
@@ -171,7 +176,7 @@ RSpec.describe DevicesController, type: :controller do
         end
 
         it 'updates the requested device' do
-          device = Device.create! attributes
+          device
           put :update, { id: device.to_param, device: new_attributes, ipv4_addresses: new_ipv4_attributes }, valid_session
           device.reload
           expect(device.domain).to eq(new_attributes[:domain])
@@ -185,13 +190,13 @@ RSpec.describe DevicesController, type: :controller do
 
     context 'with invalid params' do
       it 'assigns the device as @device' do
-        device = Device.create! attributes
+        device
         put :update, { id: device.to_param, device: invalid_attributes, ipv4_addresses: ipv4_attributes }, valid_session
         expect(assigns(:device)).to eq(device)
       end
 
       it "re-renders the 'edit' template" do
-        device = Device.create! attributes
+        device
         put :update, { id: device.to_param, device: invalid_attributes, ipv4_addresses: ipv4_attributes }, valid_session
         expect(response).to render_template('edit')
       end
@@ -200,25 +205,32 @@ RSpec.describe DevicesController, type: :controller do
     context 'with invalid IPv4 params' do
       let(:ipv4_attributes) { [{ ipv4_address: 'not.an.ip.address', mac_address: 'not.a.mac.address' }] }
 
-      it 'raises validation error' do
-        device = Device.create! attributes
-        expect do
-          put :update, { id: device.to_param, device: invalid_attributes, ipv4_addresses: ipv4_attributes }, format: :json
-        end.to raise_error(ActiveRecord::RecordInvalid)
+      it 'does not validate device' do
+        device
+        put :update, { id: device.to_param, device: attributes, ipv4_addresses: ipv4_attributes }, valid_session
+        expect(assigns(:device)).to be_invalid
+      end
+
+      it "re-renders the 'edit' template" do
+        device
+        put :update, { id: device.to_param, device: attributes, ipv4_addresses: ipv4_attributes }, valid_session
+        expect(assigns(:device)).to be_invalid
+        expect(response).to render_template('edit')
       end
     end
   end
 
   describe 'DELETE destroy' do
+
     it 'destroys the requested device' do
-      device = Device.create! attributes
+      device
       expect do
         delete :destroy, { id: device.to_param }, valid_session
       end.to change(Device, :count).by(-1)
     end
 
     it 'redirects to the devices list' do
-      device = Device.create! attributes
+      device
       delete :destroy, { id: device.to_param }, valid_session
       expect(response).to redirect_to(devices_url)
     end

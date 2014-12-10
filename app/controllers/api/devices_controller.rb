@@ -4,8 +4,7 @@ class Api::DevicesController < ApiController
   respond_to :json
 
   def create
-    @device.save unless @device.persisted?
-    Cube::DeviceResource.new.device_ipv4_addresses(@device, device_ipv4_params) if device_ipv4_params
+    Cube::DeviceResource.new.device_ipv4_addresses(@device, device_ipv4_params)
     if @device.update(device_params)
       render json: @device.previous_changes.merge(@device.changes || {})
     else
@@ -17,7 +16,7 @@ class Api::DevicesController < ApiController
   private
 
   def set_device
-    @device = Device.find_by(hostname: device_params[:hostname], domain: device_params[:domain]) || Device.new(device_params)
+    @device = Device.find_by(hostname: device_params[:hostname], domain: device_params[:domain]) || Device.create(device_params)
   end
 
   def device_ipv4_params

@@ -4,11 +4,12 @@ module Cube
       return device unless params.is_a?(Array)
       params.each do |interface|
         next unless interface[:ipv4_address]
-        new_ipv4 = IPv4Address.where(ipv4_address: interface[:ipv4_address]).first_or_create
-        if new_ipv4.invalid?
-          device.errors.messages[interface[:ipv4_address]] = new_ipv4.errors
+        ipv4 = IPv4Address.where(ipv4_address: interface[:ipv4_address]).first
+        if ipv4
+          device.ipv4_addresses << ipv4 unless device.ipv4_addresses.include?(ipv4)
+        else
+          device.ipv4_addresses.new(ipv4_address: interface[:ipv4_address])
         end
-        device.ipv4_addresses << new_ipv4 unless device.ipv4_addresses.include?(new_ipv4)
       end
       device
     end

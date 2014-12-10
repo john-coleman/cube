@@ -27,6 +27,7 @@ class Device < ActiveRecord::Base
   validates_associated :ipv4_addresses
 
   before_validation :downcase_os
+  accepts_nested_attributes_for :ipv4_addresses
 
   def downcase_os
     os.downcase! if os.is_a?(String)

@@ -132,7 +132,7 @@ RSpec.describe Api::DevicesController, type: :controller do
         end
 
         it "returns 'HTTP 422 Unprocessable Entity'" do
-          post :create, { device: invalid_attributes, ipv4_addresses: ipv4_attributes }, format: :json
+          post :create, device: invalid_attributes, format: :json
           expect(response.status).to eq(422)
         end
       end
@@ -140,10 +140,9 @@ RSpec.describe Api::DevicesController, type: :controller do
       context 'with invalid IPv4 params' do
         let(:ipv4_attributes) { [{ ipv4_address: 'not.an.ip.address', mac_address: 'not.a.mac.address' }] }
 
-        it 'raises validation error' do
-          expect do
-            post :create, { device: attributes, ipv4_addresses: ipv4_attributes }, format: :json
-          end.to raise_error(ActiveRecord::RecordInvalid)
+        it "returns 'HTTP 422 Unprocessable Entity'" do
+          post :create, { device: attributes, ipv4_addresses: ipv4_attributes }, format: :json
+          expect(response.status).to eq(422)
         end
       end
     end
