@@ -18,7 +18,7 @@ RSpec.describe Api::DevicesController, type: :controller do
     }
   end
   let(:ipv4) { FactoryGirl.build :ipv4_address }
-  let(:ipv4_attributes) { attributes.merge(ipv4_address: ipv4.ipv4_address) }
+  let(:ipv4_attributes) { [{ ipv4_address: ipv4.ipv4_address, mac_address: ipv4.mac_address }] }
   let(:valid_session) { {} }
 
   describe 'POST create' do
@@ -61,12 +61,12 @@ RSpec.describe Api::DevicesController, type: :controller do
           context 'with valid params with ipv4_address' do
             it 'creates a new IPv4Address' do
               expect do
-                post :create, device: ipv4_attributes, format: :json
+                post :create, device: attributes, ipv4_addresses: ipv4_attributes, format: :json
               end.to change(IPv4Address, :count).by(1)
             end
 
             it 'returns device updates as json' do
-              post :create, device: ipv4_attributes, format: :json
+              post :create, device: attributes, ipv4_addresses: ipv4_attributes, format: :json
               expect(response.status).to be(200)
               expect(response.body).to eq(assigns(:device).previous_changes.to_json)
             end
@@ -95,27 +95,29 @@ RSpec.describe Api::DevicesController, type: :controller do
           end
 
           it 'assigns existing device as @device' do
+            existing_device
             post :create, device: updated_attributes, format: :json
             expect(assigns(:device)).to eq(existing_device)
             expect(assigns(:device)).to be_persisted
           end
 
           it 'returns device updates as json' do
+            existing_device
             post :create, device: updated_attributes, format: :json
             expect(response.status).to be(200)
             expect(response.body).to eq(assigns(:device).previous_changes.to_json)
           end
 
           context 'with ipv4_address' do
-            let(:ipv4_attributes) { updated_attributes.merge(ipv4_address: ipv4.ipv4_address) }
             it 'creates a new IPv4Address' do
+              existing_device
               expect do
-                post :create, device: ipv4_attributes, format: :json
+                post :create, device: updated_attributes, ipv4_addresses: ipv4_attributes, format: :json
               end.to change(IPv4Address, :count).by(1)
             end
 
             it 'returns device updates as json' do
-              post :create, device: ipv4_attributes, format: :json
+              post :create, device: updated_attributes, ipv4_addresses: ipv4_attributes, format: :json
               expect(response.status).to be(200)
               expect(response.body).to eq(assigns(:device).previous_changes.to_json)
             end
@@ -125,37 +127,25 @@ RSpec.describe Api::DevicesController, type: :controller do
 
       context 'with invalid params' do
         it 'assigns a newly created but unsaved device as @device' do
-          post :create, device: invalid_attributes, format: :json
+          post :create, { device: invalid_attributes, ipv4_addresses: ipv4_attributes }, format: :json
           expect(assigns(:device)).to be_a_new(Device)
         end
 
-        it "re-renders the 'new' template" do
-          post :create, device: invalid_attributes, format: :json
+        it "returns 'HTTP 422 Unprocessable Entity'" do
+          post :create, { device: invalid_attributes, ipv4_addresses: ipv4_attributes }, format: :json
           expect(response.status).to eq(422)
+        end
+      end
+
+      context 'with invalid IPv4 params' do
+        let(:ipv4_attributes) { [{ ipv4_address: 'not.an.ip.address', mac_address: 'not.a.mac.address' }] }
+
+        it 'raises validation error' do
+          expect do
+            post :create, { device: attributes, ipv4_addresses: ipv4_attributes }, format: :json
+          end.to raise_error(ActiveRecord::RecordInvalid)
         end
       end
     end
   end
-
-  # describe '#update' do
-  #   let(:team) { FactoryGirl.build(:team) }
-  #   let(:user) { FactoryGirl.build(:user, team: team) }
-
-  # end
-
-  # describe '#update_info_from_aws' do
-  #   let(:ec2_instance) { instance_double(Ec2Instance, update_info: true, id: 45) }
-
-  #   context 'for instance with some id' do
-  #     before(:each) do
-  #       request.headers['X-Auth-Token'] = CONFIG['pantry']['api_key']
-  #       allow(Ec2Instance).to receive(:find).with('45').and_return(ec2_instance)
-  #     end
-
-  #     it 'returns http success' do
-  #       post :update_info_from_aws, id: 45, format: 'json'
-  #       expect(response).to be_success
-  #     end
-  #   end
-  # end
 end
