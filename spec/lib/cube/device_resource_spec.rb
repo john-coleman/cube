@@ -7,9 +7,16 @@ RSpec.describe Cube::DeviceResource do
 
   describe '#device_ipv4_addresses' do
     context 'with new IPv4 address params' do
-      it 'associates ipv4_address' do
-        subject.device_ipv4_addresses(device, params)
-        expect(device.ipv4_addresses.last[:ipv4_address]).to eq(ipv4[:ipv4_address])
+      context 'associates ipv4_address' do
+        it 'sets ipv4_address' do
+          subject.device_ipv4_addresses(device, params)
+          expect(device.ipv4_addresses.last[:ipv4_address]).to eq(ipv4[:ipv4_address])
+        end
+
+        it 'sets mac_address' do
+          subject.device_ipv4_addresses(device, params)
+          expect(device.ipv4_addresses.last[:mac_address]).to eq(ipv4[:mac_address])
+        end
       end
 
       it 'does not persist new ipv4_address' do
@@ -31,9 +38,16 @@ RSpec.describe Cube::DeviceResource do
         expect { subject.device_ipv4_addresses(device, params) }.to_not change(IPv4Address, :count)
       end
 
-      it 'associates ipv4_address' do
-        subject.device_ipv4_addresses(device, params)
-        expect(device.ipv4_addresses.last[:ipv4_address]).to eq(ipv4[:ipv4_address])
+      context 'associates ipv4_address' do
+        it 'sets ipv4_address' do
+          subject.device_ipv4_addresses(device, params)
+          expect(device.ipv4_addresses.last[:ipv4_address]).to eq(ipv4[:ipv4_address])
+        end
+
+        it 'sets mac_address' do
+          subject.device_ipv4_addresses(device, params)
+          expect(device.ipv4_addresses.last[:mac_address]).to eq(ipv4[:mac_address])
+        end
       end
 
       it 'existing ipv4_address is persisted' do
