@@ -10,12 +10,14 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.from_omniauth(env['omniauth.auth']['extra']['raw_info']) if env && env['omniauth.auth']
-    unless user
-      redirect_to('auth/ldap', notice: 'User LDAP Authentication Failed!') && return
-    end
+    redirect_to('auth/ldap') && return unless env && env['omniauth.auth']
+    user = User.from_omniauth(env['omniauth.auth']['extra']['raw_info'])
+    redirect_to('/auth/ldap') && return unless user
+    requested_url = session['requested_url'] || root_url
+    reset_session
     session[:user_id] = user.id
-    redirect_after_create
+    flash[:success] = 'Signed in!'
+    redirect_to requested_url
   end
 
   def failure
@@ -40,14 +42,5 @@ class SessionsController < ApplicationController
     page = root_url if page['/auth']
     session['requested_url'] = nil
     redirect_to page
-  end
-
-  def redirect_after_create
-    page = session['requested_url'] || root_url
-    if page['/auth']
-      page = root_url
-      session['requested_url'] = nil
-    end
-    redirect_to page, notice: 'Signed in!'
   end
 end
