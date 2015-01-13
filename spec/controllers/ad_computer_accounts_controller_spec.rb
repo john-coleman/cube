@@ -19,7 +19,6 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe ADComputerAccountsController, type: :controller do
-
   # This should return the minimal set of attributes required to create a valid
   # ADComputerAccount. As you add validations to ADComputerAccount, be sure to
   # adjust the attributes here as well.
@@ -169,5 +168,4 @@ RSpec.describe ADComputerAccountsController, type: :controller do
       expect(response).to redirect_to(ad_computer_accounts_url)
     end
   end
-
 end

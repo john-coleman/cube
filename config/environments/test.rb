@@ -34,6 +34,9 @@ Cube::Application.configure do
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
+  # Execute test cases in random order (default for Rails 5.0)
+  config.active_support.test_order = :random
+
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 end

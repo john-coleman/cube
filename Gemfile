@@ -7,7 +7,7 @@ gem 'mysql2'
 gem 'syslogger'
 gem 'rack-ssl'
 gem 'cache_digests'
-#gem 'newrelic_rpm', '~> 3.7'
+gem 'newrelic_rpm'
 gem 'omniauth-ldap', github: 'intridea/omniauth-ldap'
 gem 'net-ldap', github: 'ruby-ldap/ruby-net-ldap'
 
@@ -20,6 +20,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
+gem 'responders', '~> 2.0'
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails', '~> 4.0'
@@ -58,6 +59,7 @@ group :development do
   # Use sqlite3 as the database for Active Record if you don't have MySQL installed
   # gem 'sqlite3'
   gem 'thin'
+  gem 'web-console', '~> 2.0'
 end
 
 group :test do

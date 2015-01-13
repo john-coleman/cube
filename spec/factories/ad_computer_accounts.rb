@@ -4,5 +4,4 @@ FactoryGirl.define do
     sequence(:machine_account) { |n| "factory-girl#{n}" }
     ou 'OU=Factory Girl,DC=factory,DC=girl'
   end
-
 end

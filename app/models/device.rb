@@ -21,7 +21,7 @@ class Device < ActiveRecord::Base
   validates :os, allow_nil: true, allow_blank: true,
                  inclusion: { in: OS_TYPES, message: "must be one of #{OS_TYPES.join(', ')}" }
   validates :pci_scope, allow_nil: true, allow_blank: true,
-                        inclusion: { in: ['true', 'false', true, false], message: "must be 'true' or 'false' at present" }
+                        inclusion: { in: ['true', 'false', true, false, '1', '0'], message: "must be 'true' or 'false' at present" }
 
   # validates_associated :ad_computer_account
   validates_associated :ipv4_addresses

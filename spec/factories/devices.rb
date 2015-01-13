@@ -1,6 +1,5 @@
 FactoryGirl.define do
   factory :device do
-
     sequence(:hostname) { |n| "host#{n}" }
     domain 'factory.girl'
     creator
@@ -26,5 +25,4 @@ FactoryGirl.define do
       ipv4_addresses { [FactoryGirl.build(:ipv4_address)] }
     end
   end
-
 end

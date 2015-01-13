@@ -151,7 +151,7 @@ RSpec.describe DevicesController, type: :controller do
         device.reload
         expect(device.domain).to eq(new_attributes[:domain])
         expect(device.hostname).to eq(new_attributes[:hostname])
-        expect(device.os).to eq(new_attributes[:os])
+        expect(device.os).to eq(new_attributes[:os].downcase)
         expect(device.pci_scope).to eq(new_attributes[:pci_scope])
       end
 
@@ -181,7 +181,7 @@ RSpec.describe DevicesController, type: :controller do
           device.reload
           expect(device.domain).to eq(new_attributes[:domain])
           expect(device.hostname).to eq(new_attributes[:hostname])
-          expect(device.os).to eq(new_attributes[:os])
+          expect(device.os).to eq(new_attributes[:os].downcase)
           expect(device.pci_scope).to eq(new_attributes[:pci_scope])
           expect(device.ipv4_address).to eq(new_ipv4_attributes.first[:ipv4_address])
         end
@@ -221,7 +221,6 @@ RSpec.describe DevicesController, type: :controller do
   end
 
   describe 'DELETE destroy' do
-
     it 'destroys the requested device' do
       device
       expect do

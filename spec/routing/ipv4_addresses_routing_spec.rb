@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe IPv4AddressesController, type: :routing do
   describe 'routing' do
-
     it 'routes to #index' do
       expect(get: '/ipv4_addresses').to route_to('ipv4_addresses#index')
     end
@@ -30,6 +29,5 @@ RSpec.describe IPv4AddressesController, type: :routing do
     it 'routes to #destroy' do
       expect(delete: '/ipv4_addresses/1').to route_to('ipv4_addresses#destroy', id: '1')
     end
-
   end
 end

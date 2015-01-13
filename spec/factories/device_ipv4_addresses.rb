@@ -3,5 +3,4 @@ FactoryGirl.define do
     device
     ipv4_address
   end
-
 end

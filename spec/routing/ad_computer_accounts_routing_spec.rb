@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe ADComputerAccountsController, type: :routing do
   describe 'routing' do
-
     it 'routes to #index' do
       expect(get: '/ad_computer_accounts').to route_to('ad_computer_accounts#index')
     end
@@ -30,6 +29,5 @@ RSpec.describe ADComputerAccountsController, type: :routing do
     it 'routes to #destroy' do
       expect(delete: '/ad_computer_accounts/1').to route_to('ad_computer_accounts#destroy', id: '1')
     end
-
   end
 end
