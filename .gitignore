@@ -8,6 +8,7 @@
 /.bundle
 
 # Ignore the default SQLite database.
+/db/seeds.rb
 /db/*.sqlite3
 /db/*.sqlite3-journal
 
@@ -23,6 +24,8 @@
 /config/database.yml
 /config/newrelic.yml
 /config/secrets.yml
+/config/initializers/secret_token.rb
+
 
 # Ignore documentation
 /doc

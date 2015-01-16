@@ -1,8 +1,9 @@
 # Be sure to restart your server when you modify this file.
 
-Cube::Application.config.session_store :cookie_store, key: '_cube_session'
+# Cube::Application.config.session_store :cookie_store, key: '_cube_session'
 
 # Use the database for sessions instead of the cookie-based default,
 # which shouldn't be used to store highly confidential information
-# (create the session table with "rails generate session_migration")
-# Cube::Application.config.session_store :active_record_store
+# (create the session table with "rails generate active_record:session_migration")
+# Can migrate to Memcached in future if necessary
+Cube::Application.config.session_store :active_record_store

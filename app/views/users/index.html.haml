@@ -1,5 +1,7 @@
 %h1 Listing users
 
+= link_to 'New User', new_user_path
+
 %table
   %tr
     %th Username
@@ -19,5 +21,3 @@
       %td= link_to 'Destroy', user, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
-
-= link_to 'New User', new_user_path

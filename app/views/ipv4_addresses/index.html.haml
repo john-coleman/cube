@@ -1,5 +1,7 @@
 %h1 Listing ipv4_addresses
 
+= link_to 'New IPv4 Address', new_ipv4_address_path
+
 %table
   %tr
     %th IPv4 Address
@@ -19,5 +21,3 @@
       %td= link_to 'Destroy', ipv4_address, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
-
-= link_to 'New IPv4 Address', new_ipv4_address_path

@@ -16,7 +16,7 @@ class DevicesController < ApplicationController
   end
 
   def create
-    @device = Device.create(device_params)
+    @device = Device.new(device_params)
     Cube::DeviceResource.new.device_ipv4_addresses(@device, device_ipv4_params)
     respond_to do |format|
       if @device.save

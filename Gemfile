@@ -7,6 +7,7 @@ gem 'mysql2'
 gem 'syslogger'
 gem 'rack-ssl'
 gem 'cache_digests'
+gem 'activerecord-session_store'
 gem 'newrelic_rpm'
 gem 'omniauth-ldap', github: 'intridea/omniauth-ldap'
 gem 'net-ldap', github: 'ruby-ldap/ruby-net-ldap'
@@ -44,7 +45,7 @@ group :development do
   gem 'bundler-audit', require: false
   # Use Capistrano for deployment
   # gem 'capistrano-rails'
-  gem 'codesake-dawn', require: false
+  gem 'dawnscanner', require: false
   gem 'guard'
   gem 'guard-brakeman'
   gem 'guard-bundler'
