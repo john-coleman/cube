@@ -1,7 +1,7 @@
 development:
   cube:
-    email_domain: 'mydomain.com'
-    maintainer_email: 'cube@mydomain.com'
+    email_domain: 'example.com'
+    maintainer_email: 'cube@example.com'
     maintainer_email_title: 'Email Cube Support'
     maintainer_url: 'https://cube.support.site'
     maintainer_url_title: 'Cube Tracker'
@@ -9,42 +9,42 @@ development:
   mailer:
     host: 'localhost:3000'
     default_options:
-      from: cube@mydomain.com
-      reply_to: cube@mydomain.com
-      bcc: cube@mydomain.com
+      from: cube@example.com
+      reply_to: cube@example.com
+      bcc: cube@example.com
   omniauth:
     title: 'cube LDAP Login'
-    host: 'mydomain.com'
+    host: 'example.com'
     port: 3268
     method: 'plain'
     base: 'dc=example,dc=com'
     uid: 'sAMAccountName'
-    bind_dn: 'your_user@mydomain.com'
+    bind_dn: 'your_user@example.com'
     password: 'secret_password'
     auth_method: 'simple'
     ldap_group: 'CN=cube Security Group,OU=Users,DC=example,DC=com'
 test:
   cube:
-    email_domain: 'mydomain.com'
-    maintainer_email: 'cube@mydomain.com'
+    email_domain: 'example.com'
+    maintainer_email: 'cube@example.com'
     maintainer_email_title: 'Email Cube Support'
     maintainer_url: 'https://cube.support.site'
     maintainer_url_title: 'Cube Tracker'
     ssl_enabled: false
   mailer:
-    host: 'mydomain.com'
+    host: 'example.com'
     default_options:
-      from: cube@mydomain.com
-      reply_to: cube@mydomain.com
-      bcc: cube@mydomain.com
+      from: cube@example.com
+      reply_to: cube@example.com
+      bcc: cube@example.com
   omniauth:
     title: 'cube LDAP Login'
-    host: 'mydomain.com'
+    host: 'example.com'
     port: 3268
     method: 'plain'
     base: 'dc=example,dc=com'
     uid: 'sAMAccountName'
-    bind_dn: 'your_user@mydomain.com'
+    bind_dn: 'your_user@example.com'
     password: 'secret_password'
     auth_method: 'simple'
     ldap_group: 'CN=Cube Security Group,OU=Users,DC=example,DC=com'

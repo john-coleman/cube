@@ -4,7 +4,7 @@ RSpec.describe User, type: :model do
   subject { FactoryGirl.build :user }
 
   let(:username) { 'some_user_id' }
-  let(:user_email) { 'test@mydomain.com' }
+  let(:user_email) { 'test@example.com' }
 
   describe '.from_omniauth' do
     let(:omniauth_params) { { 'samaccountname' => [username], 'mail' => [user_email], 'displayname' => ['name'] } }
@@ -43,7 +43,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'returns lowercase email' do
-      expect(User.new(email: 'Test@mydomain.com').email).to eq('test@mydomain.com')
+      expect(User.new(email: 'Test@example.com').email).to eq('test@example.com')
     end
   end
 end
