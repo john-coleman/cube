@@ -5,24 +5,28 @@ application up and running.
 
 Things you may want to cover:
 
-* Ruby version
+For local development:
+* Ruby 2.1
+* Run `bundle install` to install dependencies
+* Copy config/*.yml.sample to config/*.yml and customize
+* Create a local MySQL database
+* Use `RAILS_ENV=development bundle exec rake db:setup` to prepare database
+* Run tests with `bundle exec rake` and ensure all are passing. Tests in master should pass - if not check your setup.
+* A Guardfile is provided if you wish to run `guard` in a tmux pane for TDD
+* You can run an instance of data collectors to populate info eg. cube_vmware_miner
 
-* System dependencies
+For production deployment:
+Use the Chef cube cookbook which will deploy an instance of Cube running through Apache2 and Passenger.
 
-* Configuration
+Domain Model Diagram:
+Generated using 'rails-erd' gem which requires Graphviz 2.22+
+RAILS_ENV=test bundle exec erd \
+  --filetype=png \
+  --title="Cube Domain Model" \
+  --notation=uml \
+  --attributes=content,primary_keys,foreign_keys,timestamps,inheritance \
+  --polymorphism
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+New Relic:
+set 'developer_mode: true' in config/newrelic.yml to run new relic in development mode, info are shown here http://localhost:3000/newrelic
+DO NOT USE 'developer_mode: true' for production :)
